@@ -61,6 +61,7 @@ namespace PEAS
                     response.Message = "OTP expired. Please try again.";
                     var obj = new ObjectResult(JsonConvert.SerializeObject(response));
                     obj.StatusCode = StatusCodes.Status408RequestTimeout;
+                    log.LogInformation($"Expired OTP for {loginRequest.EMail}");
                     return obj;
                 }
                 if(user.OTP == loginRequest.OTP)
@@ -71,6 +72,8 @@ namespace PEAS
 
                     var token = Helper.GetJwtToken(app.SharedSecret, user.Domain, user.Group, loginRequest.EMail);
 
+                    log.LogInformation($"Successfull login : {loginRequest.EMail}");
+
                     response.Message = "Login successfull.";
                     response.Success = true;
                     response.Token = token;
@@ -79,6 +82,7 @@ namespace PEAS
                 }
                 else
                 {
+                    log.LogInformation($"Invalid OTP for {loginRequest.EMail}");
                     response.Message = "Invalid OTP";
                 }
             }
@@ -93,6 +97,8 @@ namespace PEAS
                 tableClientUsers.UpdateEntity<UserTableEntity>(user, user.ETag);
 
                 Helper.SendOTPEMail(loginRequest.EMail, otp);
+
+                log.LogInformation($"New login attempt: {loginRequest.EMail}");
 
                 response.Success = true;
                 response.Message = "Sent e-mail with one time password.";
