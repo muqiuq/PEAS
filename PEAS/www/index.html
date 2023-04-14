@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Philipp Albrecht <info@uisa.ch>">
+    <title>PEAS - Login</title>
+    <link href="/api/static?f=bootstrap.min.css" rel="stylesheet">
+    <link href="/api/static?f=spin.css" rel="stylesheet">
+    <script src="/api/static?f=spin.umd.js"></script>
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <link href="/api/static?f=signin.css" rel="stylesheet">
+</head>
+<body class="text-center">
+    <main class="form-signin">
+        <div id="alerts"></div>
+        <form method="post" action="/api/login">
+            <img class="mb-4" src="static?f=logo.png" alt="" height="100">
+            <h1 class="h3 mb-3 fw-normal">[[NAME]]</h1>
+            <h2 class="h4 mb-3 fw-normal" style="font-style: italic;">Please sign in</h2>
+            <input type="hidden" name="apptoken" id="apptoken" value="[[APPTOKEN]]" />
+            <div class="form-floating">
+                <input type="email" class="form-control" id="username" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating" style="visibility: hidden" id="otpdiv">
+                <input type="password" class="form-control" id="otp" placeholder="OTP">
+                <label for="floatingPassword">One time Password</label>
+            </div>
+            <div>
+                <br />
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="button" id="submit" onclick="nextstep();">Get OTP</button>
+            <p class="mt-5 mb-3 text-muted">&copy; PEAS</p>
+        </form>
+    </main>
+    <script src="/api/static?f=custom.js" type="text/javascript"></script>
+</body>
+</html>
