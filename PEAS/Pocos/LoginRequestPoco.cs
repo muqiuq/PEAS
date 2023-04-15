@@ -13,6 +13,6 @@ namespace PEAS.Pocos
         public string EMail { get; set; }
 
         public string OTP { get; set; }
-
+        public string ReqId { get; set; }
     }
 }

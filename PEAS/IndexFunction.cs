@@ -11,6 +11,8 @@ using Azure.Data.Tables;
 using PEAS.Entities;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
 
 namespace PEAS
 {
@@ -34,6 +36,12 @@ namespace PEAS
             ILogger log)
         {
             var appToken = req.Query["app"];
+            var reqId = req.Query["reqid"];
+
+            if (string.IsNullOrEmpty(reqId) || !Regex.IsMatch(reqId, @"^[a-zA-Z0-9\-]+$"))
+            {
+                return new BadRequestResult();
+            }
 
             var app = tableClientApplications.Query<ApplicationTableEntity>().Where(i => i.AppToken == appToken).FirstOrDefault();
 
@@ -43,7 +51,10 @@ namespace PEAS
             }
 
             var indexFile = File.ReadAllText(indexFilePath);
-            indexFile = indexFile.Replace("[[NAME]]", app.Name).Replace("[[APPTOKEN]]", app.AppToken);
+            indexFile = indexFile
+                .Replace("[[NAME]]", app.Name)
+                .Replace("[[REQID]]", reqId)
+                .Replace("[[APPTOKEN]]", app.AppToken);
             return new ContentResult() { Content = indexFile , ContentType = "text/html" };
         }
     }

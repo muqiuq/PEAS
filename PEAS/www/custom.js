@@ -28,7 +28,8 @@ function loginstep2() {
             {
                 "AppToken": document.getElementById("apptoken").value,
                 "EMail": document.getElementById("username").value,
-                "OTP": document.getElementById("otp").value
+                "OTP": document.getElementById("otp").value,
+                "ReqId": document.getElementById("reqid").value
             })
     })
         .then(response => {

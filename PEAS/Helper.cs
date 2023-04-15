@@ -87,7 +87,9 @@ namespace PEAS
                 { "sub", email },
             };
 
+#pragma warning disable CS0618 // Type or member is obsolete
             IJwtAlgorithm algorithm = new HMACSHA256Algorithm();
+#pragma warning restore CS0618 // Type or member is obsolete
             IJsonSerializer serializer = new JsonNetSerializer();
             IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
 

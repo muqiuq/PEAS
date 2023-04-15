@@ -49,7 +49,7 @@ namespace PEAS
                 return new NotFoundResult();
             }
 
-            if (!string.IsNullOrEmpty(loginRequest.OTP))
+            if (!string.IsNullOrEmpty(loginRequest.OTP) && !string.IsNullOrEmpty(loginRequest.ReqId))
             {
                 if(string.IsNullOrEmpty(user.OTP))
                 {
@@ -77,7 +77,7 @@ namespace PEAS
                     response.Message = "Login successfull.";
                     response.Success = true;
                     response.Token = token;
-                    response.RedirectUrl = app.RedirectUrl + token;
+                    response.RedirectUrl = $"{app.RedirectUrl}?auth={token}&reqid={loginRequest.ReqId}";
                     return new OkObjectResult(JsonConvert.SerializeObject(response));
                 }
                 else
