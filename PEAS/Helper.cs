@@ -77,7 +77,7 @@ namespace PEAS
             }
         }
 
-        public static string GetJwtToken(string sharedSecret, string domain, string group, string email)
+        public static string GetJwtToken(string sharedSecret, string domain, string group, string email, string reqid)
         {
             var payload = new Dictionary<string, object>
             {
@@ -85,6 +85,7 @@ namespace PEAS
                 { "group", group },
                 { "email", email },
                 { "sub", email },
+                { "reqid", reqid }
             };
 
 #pragma warning disable CS0618 // Type or member is obsolete

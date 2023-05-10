@@ -70,14 +70,14 @@ namespace PEAS
                     user.LastSuccessFullLogin = DateTime.UtcNow;
                     tableClientUsers.UpdateEntity<UserTableEntity>(user, user.ETag);
 
-                    var token = Helper.GetJwtToken(app.SharedSecret, user.Domain, user.Group, loginRequest.EMail);
+                    var token = Helper.GetJwtToken(app.SharedSecret, user.Domain, user.Group, loginRequest.EMail, loginRequest.ReqId);
 
                     log.LogInformation($"Successfull login : {loginRequest.EMail}");
 
                     response.Message = "Login successfull.";
                     response.Success = true;
                     response.Token = token;
-                    response.RedirectUrl = $"{app.RedirectUrl}?auth={token}&reqid={loginRequest.ReqId}";
+                    response.RedirectUrl = $"{app.RedirectUrl}?auth={token}";
                     return new OkObjectResult(JsonConvert.SerializeObject(response));
                 }
                 else
