@@ -84,7 +84,7 @@ namespace PEAS
                 { "domain", domain },
                 { "group", group },
                 { "email", email },
-                { "sub", email },
+                { "sub", reqid },
                 { "reqid", reqid }
             };
 
